@@ -14,6 +14,7 @@ import com.example.resmedsports.util.ApiResponseWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -22,11 +23,20 @@ class MainActivityViewModel @Inject constructor(
     private val sportRepository: SportRepository
 ) : ViewModel() {
 
+    private val simpleDateFormat: DateFormat
+            = SimpleDateFormat.getDateInstance()
+
     private val sportResultsMutable: MutableLiveData<ApiResponseWrapper<List<String>>> =
         MutableLiveData()
 
     val sportResultsLiveData: LiveData<ApiResponseWrapper<List<String>>> =
         sportResultsMutable
+
+    private val mostRecentDateMutable: MutableLiveData<String> =
+        MutableLiveData()
+
+    val mostRecentDateLiveData: LiveData<String> =
+        mostRecentDateMutable
 
     fun getSportResults() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -37,7 +47,7 @@ class MainActivityViewModel @Inject constructor(
                 getMostRecentDateSportResults(sportResultsResponse)
 
                 sportResultsMutable.postValue(
-                    ApiResponseWrapper.success(handleSportResults(sportResultsResponse))
+                    ApiResponseWrapper.success(toStringListOfMostRecentResults(sportResultsResponse))
                 )
             } catch (e: Exception) {
                 sportResultsMutable.postValue(ApiResponseWrapper.error(exception = e))
@@ -46,7 +56,7 @@ class MainActivityViewModel @Inject constructor(
         }
     }
 
-    private fun handleSportResults(sportResultsResponse: SportResultsResponse): List<String> {
+    private fun toStringListOfMostRecentResults(sportResultsResponse: SportResultsResponse): List<String> {
 
         val mostRecentDateSportResults = getMostRecentDateSportResults(sportResultsResponse)
 
@@ -64,12 +74,13 @@ class MainActivityViewModel @Inject constructor(
 
         val mostRecentDate = sportResults[0].publicationDate
 
-        return sportResults.filter { isSameDay(mostRecentDate, it.publicationDate) }
+        mostRecentDateMutable.postValue(simpleDateFormat.format(mostRecentDate))
+
+        return sportResults.filter { isSameDay(mostRecentDate, it.publicationDate, simpleDateFormat) }
     }
 
-    private fun isSameDay(date1: Date, date2: Date): Boolean {
-        val simpleDateFormat = SimpleDateFormat.getDateInstance()
-        return simpleDateFormat.format(date1) == simpleDateFormat.format(date2)
+    private fun isSameDay(date1: Date, date2: Date, dateFormat: DateFormat): Boolean {
+        return dateFormat.format(date1) == dateFormat.format(date2)
     }
 
     private fun convertResultToStrings(mostRecentDateSportResults: List<BaseSportResult>): List<String> {
@@ -85,7 +96,7 @@ class MainActivityViewModel @Inject constructor(
                 is TennisSportResult -> {
                     tennisToString(it)
                 }
-                else -> "Sport result not supported"
+                else -> "Sport result type not supported"
             }
             stringResults.add(stringResult)
         }

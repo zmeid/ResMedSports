@@ -6,6 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".view.MainActivity">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewSportResults"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/sport_results_row">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
     <Button
         android:id="@+id/buttonGetResults"
         android:layout_width="wrap_content"
@@ -29,10 +49,10 @@
 
     <TextView
         android:id="@+id/textViewError"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/buttonGetResults"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

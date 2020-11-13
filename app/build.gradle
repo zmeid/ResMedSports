@@ -83,4 +83,8 @@ dependencies {
     // region CardView
     implementation "androidx.cardview:cardview:$cardview_version"
     // endregion
+
+    // region SwipeToRefresh
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_to_refresh_version"
+    // endregion
 }
