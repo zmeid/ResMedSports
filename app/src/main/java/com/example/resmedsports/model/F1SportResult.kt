@@ -9,7 +9,6 @@ private const val SECONDS = "seconds"
 private const val TOURNAMENT = "tournament"
 private const val WINNER = "winner"
 
-
 data class F1SportResult(
     @SerializedName(PUBLICATION_DATE) override val publicationDate: Date,
     @SerializedName(SECONDS) val seconds: Double,

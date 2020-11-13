@@ -12,7 +12,6 @@ class SportResultsAdapter(private val sportResults: List<String>) :
         fun bind(sportResult: String) {
             binding.textViewResultRow.text = sportResult
         }
-
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -23,7 +22,6 @@ class SportResultsAdapter(private val sportResults: List<String>) :
                 false
             )
         )
-
     }
 
     override fun getItemCount(): Int {

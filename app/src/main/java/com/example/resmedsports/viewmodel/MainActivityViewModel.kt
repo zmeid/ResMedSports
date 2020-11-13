@@ -23,8 +23,7 @@ class MainActivityViewModel @Inject constructor(
     private val sportRepository: SportRepository
 ) : ViewModel() {
 
-    private val simpleDateFormat: DateFormat
-            = SimpleDateFormat.getDateInstance()
+    private val simpleDateFormat: DateFormat = SimpleDateFormat.getDateInstance()
 
     private val sportResultsMutable: MutableLiveData<ApiResponseWrapper<List<String>>> =
         MutableLiveData()
@@ -38,13 +37,15 @@ class MainActivityViewModel @Inject constructor(
     val mostRecentDateLiveData: LiveData<String> =
         mostRecentDateMutable
 
+    /**
+     * Gets sport results from [SportRepository],
+     * converts them to readable list of strings and posts it to UI with [sportResultsLiveData].
+     */
     fun getSportResults() {
         viewModelScope.launch(Dispatchers.IO) {
             sportResultsMutable.postValue(ApiResponseWrapper.loading())
             try {
                 val sportResultsResponse = sportRepository.getResults()
-
-                getMostRecentDateSportResults(sportResultsResponse)
 
                 sportResultsMutable.postValue(
                     ApiResponseWrapper.success(toStringListOfMostRecentResults(sportResultsResponse))
@@ -57,13 +58,21 @@ class MainActivityViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Gets the most recent date sport results with [getMostRecentDateSportResults],
+     * converts results to readable strings with [convertResultToStrings]
+     */
     private fun toStringListOfMostRecentResults(sportResultsResponse: SportResultsResponse): List<String> {
-
         val mostRecentDateSportResults = getMostRecentDateSportResults(sportResultsResponse)
 
         return convertResultToStrings(mostRecentDateSportResults)
     }
 
+    /**
+     * Flattens all type of sport results,
+     * sorts them by date descending,
+     * filters the list to most recent dates.
+     */
     private fun getMostRecentDateSportResults(sportResultsResponse: SportResultsResponse): List<BaseSportResult> {
         var sportResults: List<BaseSportResult> = listOf(
             sportResultsResponse.f1Results,
@@ -77,25 +86,30 @@ class MainActivityViewModel @Inject constructor(
 
         mostRecentDateMutable.postValue(simpleDateFormat.format(mostRecentDate))
 
-        return sportResults.filter { isSameDay(mostRecentDate, it.publicationDate, simpleDateFormat) }
+        return sportResults.filter {
+            isSameDay(
+                mostRecentDate,
+                it.publicationDate,
+                simpleDateFormat
+            )
+        }
     }
 
-    private fun isSameDay(date1: Date, date2: Date, dateFormat: DateFormat): Boolean {
-        return dateFormat.format(date1) == dateFormat.format(date2)
-    }
-
+    /**
+     * Converts sport results to list of strings which are readable by user.
+     */
     private fun convertResultToStrings(mostRecentDateSportResults: List<BaseSportResult>): List<String> {
         val stringResults = mutableListOf<String>()
         mostRecentDateSportResults.forEach {
             val stringResult: String = when (it) {
                 is F1SportResult -> {
-                   f1ToString(it)
+                    f1ResultToString(it)
                 }
                 is NbaSportResult -> {
-                    nbaToString(it)
+                    nbaResultToString(it)
                 }
                 is TennisSportResult -> {
-                    tennisToString(it)
+                    tennisResultToString(it)
                 }
                 else -> "Sport result type not supported"
             }
@@ -104,21 +118,25 @@ class MainActivityViewModel @Inject constructor(
         return stringResults
     }
 
-    private fun f1ToString(f1SportResult: F1SportResult):  String {
+    private fun f1ResultToString(f1SportResult: F1SportResult): String {
         f1SportResult.apply {
             return "$winner wins $tournament by $seconds seconds"
         }
     }
 
-    private fun nbaToString(nbaSportResult: NbaSportResult):  String {
+    private fun nbaResultToString(nbaSportResult: NbaSportResult): String {
         nbaSportResult.apply {
             return "$mvp leads $winner to game $gameNumber win in the $tournament"
         }
     }
 
-    private fun tennisToString(tennisSportResult: TennisSportResult):  String {
+    private fun tennisResultToString(tennisSportResult: TennisSportResult): String {
         tennisSportResult.apply {
             return "$tournament: $winner wins against $looser in $numberOfSets sets"
         }
+    }
+
+    private fun isSameDay(date1: Date, date2: Date, dateFormat: DateFormat): Boolean {
+        return dateFormat.format(date1) == dateFormat.format(date2)
     }
 }
