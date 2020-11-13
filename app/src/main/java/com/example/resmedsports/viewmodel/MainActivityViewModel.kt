@@ -51,6 +51,7 @@ class MainActivityViewModel @Inject constructor(
                 )
             } catch (e: Exception) {
                 sportResultsMutable.postValue(ApiResponseWrapper.error(exception = e))
+                mostRecentDateMutable.postValue("")
                 Timber.e(e)
             }
         }
