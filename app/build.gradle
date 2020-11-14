@@ -46,6 +46,9 @@ dependencies {
     // endregion
 
     // region Testing
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation "org.mockito:mockito-inline:$mockito_version" // enables mocking final classes
+    androidTestImplementation "androidx.test:rules:$test_rules_version"
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$junit_ext_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
