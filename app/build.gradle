@@ -1,93 +1,35 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-
-android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.1"
-
-    defaultConfig {
-        applicationId "com.example.resmedsports"
-        minSdkVersion 23
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildFeatures {
-        viewBinding = true
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-}
-
-dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-
-    // region Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "androidx.core:core-ktx:$core_ktx_version"
-    // endregion
-
-    // region Appcompat
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
-    // endregion
-
-    // region ConstraintLayout
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
-    // endregion
-
-    // region Testing
-    testImplementation "org.mockito:mockito-core:$mockito_version"
-    testImplementation "org.mockito:mockito-inline:$mockito_version" // enables mocking final classes
-    androidTestImplementation "androidx.test:rules:$test_rules_version"
-    testImplementation "junit:junit:$junit_version"
-    androidTestImplementation "androidx.test.ext:junit:$junit_ext_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-    // endregion
-
-    // region Dagger2
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
-    implementation "com.google.dagger:dagger:$dagger_version"
-    implementation "com.google.dagger:dagger-android:$dagger_version"
-    implementation "com.google.dagger:dagger-android-support:$dagger_version"
-    // endregion
-
-    // region Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
-    // endregion
-
-    // region Recyclerview
-    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
-    // endregion
-
-    // region Timber
-    implementation "com.jakewharton.timber:timber:$timber_version"
-    // endregion
-
-    // region LifeCycle
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
-    // endregion
-
-    // region CardView
-    implementation "androidx.cardview:cardview:$cardview_version"
-    // endregion
-
-    // region SwipeToRefresh
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_to_refresh_version"
-    // endregion
-}
+YXBwbHkgcGx1Z2luOiAnY29tLmFuZHJvaWQuYXBwbGljYXRpb24nCmFwcGx5
+IHBsdWdpbjogJ2tvdGxpbi1hbmRyb2lkJwphcHBseSBwbHVnaW46ICdrb3Rs
+aW4tYW5kcm9pZC1leHRlbnNpb25zJwphcHBseSBwbHVnaW46ICdrb3RsaW4t
+a2FwdCcKCmFuZHJvaWQgewogICAgY29tcGlsZVNka1ZlcnNpb24gMzAKICAg
+IGJ1aWxkVG9vbHNWZXJzaW9uICIzMC4wLjEiCgogICAgZGVmYXVsdENvbmZp
+ZyB7CiAgICAgICAgYXBwbGljYXRpb25JZCAiY29tLmV4YW1wbGUucmVzbWVk
+c3BvcnRzIgogICAgICAgIG1pblNka1ZlcnNpb24gMjMKICAgICAgICB0YXJn
+ZXRTZGtWZXJzaW9uIDMwCiAgICAgICAgdmVyc2lvbkNvZGUgMgogICAgICAg
+IHZlcnNpb25OYW1lICIxLjEiCgogICAgICAgIHRlc3RJbnN0cnVtZW50YXRp
+b25SdW5uZXIgImFuZHJvaWR4LnRlc3QucnVubmVyLkFuZHJvaWRKVW5pdFJ1
+bm5lciIKICAgIH0KCiAgICBidWlsZEZlYXR1cmVzIHsKICAgICAgICB2aWV3
+QmluZGluZyA9IHRydWUKICAgIH0KCiAgICBidWlsZFR5cGVzIHsKICAgICAg
+ICByZWxlYXNlIHsKICAgICAgICAgICAgbWluaWZ5RW5hYmxlZCB0cnVlCiAg
+ICAgICAgICAgIHByb2d1YXJkRmlsZXMgZ2V0RGVmYXVsdFByb2d1YXJkRmls
+ZSgncHJvZ3VhcmQtYW5kcm9pZC1vcHRpbWl6ZS50eHQnKSwgJ3Byb2d1YXJk
+LXJ1bGVzLnBybycKICAgICAgICB9CiAgICB9Cn0KCmRlcGVuZGVuY2llcyB7
+CiAgICBpbXBsZW1lbnRhdGlvbiBmaWxlVHJlZShkaXI6ICJsaWJzIiwgaW5j
+bHVkZTogWyIqLmphciJdKQoKICAgIC8vIHJlZ2lvbiBLb3RsaW4KICAgIGlt
+cGxlbWVudGF0aW9uICJvcmcuamV0YnJhaW5zLmtvdGxpbjprb3RsaW4tc3Rk
+bGliOiRrb3RsaW5fdmVyc2lvbiIKICAgIGltcGxlbWVudGF0aW9uICJhbmRy
+b2lkeC5jb3JlOmNvcmUta3R4OiRjb3JlX2t0eF92ZXJzaW9uIgogICAgLy8g
+ZW5kcmVnaW9uCgogICAgLy8gcmVnaW9uIEFwcGNvbXBhdAogICAgaW1wbGVt
+ZW50YXRpb24gImFuZHJvaWR4LmFwcGNvbXBhdDphcHBjb21wYXQ6JGFwcGNv
+bXBhdF92ZXJzaW9uIgogICAgLy8gZW5kcmVnaW9uCgogICAgLy8gcmVnaW9u
+IENvbnN0cmFpbnRMYXlvdXQKICAgIGltcGxlbWVudGF0aW9uICJhbmRyb2lk
+eC5jb25zdHJhaW50bGF5b3V0OmNvbnN0cmFpbnRsYXlvdXQ6JGNvbnN0cmFp
+bnRsYXlvdXRfdmVyc2lvbiIKICAgIC8vIGVuZHJlZ2lvbgoKICAgIC8vIHJl
+Z2lvbiBUZXN0aW5nCiAgICB0ZXN0SW1wbGVtZW50YXRpb24gIm9yZy5tb2Nr
+aXRvOm1vY2tpdG8tY29yZSQKbW9ja2l0b192ZXJzaW9uIgogICAgdGVzdElt
+cGxlbWVudGF0aW9uICJvcmcubW9ja2l0bzptb2NraXRvLWlubGluZSQKbW9j
+a2l0b192ZXJzaW9uIiAvLyBlbmFibGVzIG1vY2tpbmcgZmluYWwgY2xhc3Nl
+cwogICAgYW5kcm9pZFRlc3RJbXBsZW1lbnRhdGlvbiAiYW5kcm9pZHgudGVz
+dDpydWxlczokdGVzdF9ydWxlc192ZXJzaW9uIgogICAgdGVzdEltcGxlbWVu
+dGF0aW9uICJqdW5pdDpqdW5pdDokanVuaXRfdmVyc2lvbiIKICAgIGFuZHJv
+aWRUZX···
