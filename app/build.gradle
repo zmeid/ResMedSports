@@ -11,8 +11,8 @@ android {
         applicationId "com.example.resmedsports"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -68,7 +68,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
     // endregion
 
-    // region Recyclerview
+    // region RecyclerView
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
     // endregion
 
