@@ -11,8 +11,8 @@ android {
         applicationId "com.example.resmedsports"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 5654346765446
+        versionName "3.445454"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
